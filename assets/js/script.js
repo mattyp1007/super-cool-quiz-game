@@ -14,6 +14,8 @@ var questions = [
 var questionNumEl = document.getElementById("questionNum");
 var questionContentEl = document.getElementById("questionContent");
 var choicesEls = document.getElementsByClassName("choice");
+var timerEl = document.getElementById("seconds");
+console.log(timerEl);
 
 function renderQuestion(qNum){
     // display question number
@@ -26,4 +28,25 @@ function renderQuestion(qNum){
     }
 }
 
-renderQuestion(1);
+function checkAnswer(picked){
+    // check for correct answer
+}
+function countdown(){
+    var timeLeft = 90;
+    var timeInterval = setInterval(function () {
+        timeLeft--;
+        timerEl.textContent = timeLeft;
+    
+        if(timeLeft === 0){
+          clearInterval(timeInterval);
+        //   gameOver();
+        }
+      }, 1000);
+}
+
+function startGame(){
+    renderQuestion(2);
+    countdown();
+}
+
+startGame();
