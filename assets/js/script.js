@@ -1,3 +1,8 @@
+// Global variables
+var currentQuestion;
+var score;
+var timeLeft;
+
 // Question set 
 var questions = [
     {
@@ -31,12 +36,9 @@ function init(){
     gameContentEl.style.visibility = "hidden";
 }
 
+
+
 var gameContentEl = document.querySelector(".gameInProgress");
-
-var currentQuestion = 0;
-var score = 0;
-var timeLeft = 90;
-
 var questionNumEl = document.getElementById("questionNum");
 var questionContentEl = document.getElementById("questionContent");
 var choicesEls = document.getElementsByClassName("choiceText");
@@ -59,7 +61,12 @@ choiceCbuttonEl.addEventListener("click", function(){ checkAnswer(2); })
 choiceDbuttonEl.addEventListener("click", function(){ checkAnswer(3); })
 
 
-
+/* checkAnswer
+* takes in an integer 0-3 representing answer choices A-D respectively
+* increases score if matching correct answer, else decreases time
+* displays message accordingly for 1 sec
+* updates score and renders next question
+*/
 function checkAnswer(picked){
     // check for correct answer
     var resultString = "";
@@ -69,6 +76,7 @@ function checkAnswer(picked){
     }
     else {
         timeLeft -= 10;
+        timerEl.textContent = timeLeft;
         resultString = "WRONG! -10 Time";
     }
     resultEl.textContent = resultString;
@@ -80,9 +88,9 @@ function checkAnswer(picked){
     renderQuestion();
 }
 
-/* renders next question:
-1.) increment current question number
-2.) display question number and Q&A content
+/* renderQuestion:
+* increment current question number
+* display question number and content
 */
 function renderQuestion(){
     if(currentQuestion <= questions.length){
@@ -97,6 +105,7 @@ function renderQuestion(){
         }
     }
     else{
+        clearInterval(timeInterval);
         gameOver();
     }
 }
@@ -105,36 +114,43 @@ function updateScore(){
     scoreEl.textContent = score;
 }
 
-/* starts the countdown:
-1.) create time interval of one second
-2.) end game once time left hits 0 */
-function countdown(){   
+/* countdown
+* create time interval of one second
+* update timer each interval
+* end game once time left hits 0
+*/
+function countdown(){  
+    timeLeft = 90; 
     var timeInterval = setInterval(function () {
+        
         timeLeft--;
-        timerEl.textContent = timeLeft;
-    
-        if(timeLeft === 0){
+        timerEl.textContent = timeLeft;    
+        if(timeLeft <= 0){
             clearInterval(timeInterval);
             gameOver();
         }
       }, 1000);
 }
 
-/* starts a new game:
-1.) hide new game button and make the game elements visible
-2.) reset score and render first question
-3.) start the countdown */
+/* startGame
+* hide new game button and display game elements
+* reset score and render first question
+* start the countdown
+*/
 function startGame(){
     console.log(gameContentEl);
     gameContentEl.style.visibility = "visible";
     newGameButtonEl.style.visibility = "hidden";
     score = 0;
+    currentQuestion = 1;
     renderQuestion();
     countdown();
 }
 
 function gameOver(){
-    
+    gameContentEl.style.visibility = "hidden";
+    resultEl.textContent = "Game Over!";
+
 }
 
 function renderLeaderboard(){
