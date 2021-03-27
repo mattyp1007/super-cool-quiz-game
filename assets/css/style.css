@@ -1,0 +1,92 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: lightgreen;
+}
+
+.title {
+    font-size: 38px;
+    display: block;
+    margin: 30px auto;
+    width: 50%;
+    text-align: center;
+    border: 4px dotted royalblue;
+    padding: 10px 40px 18px 40px
+}
+.outerStatsBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 20px auto;
+    /* width: 12%; */
+}
+.statsBox {
+    /* display: inline-block; */
+    border: 3px dotted darkorange;
+    
+    padding: 6px;
+    text-align: right;
+    display: block;
+}
+
+.changeBox {
+    padding: 10px;
+    /* display: inline-block; */
+}
+.correct {
+    font-size: 18px;
+    font-weight: 600;
+    padding: 6px;
+    color: green;
+}
+.wrong {
+    font-size: 18px;
+    font-weight: 600;
+    padding: 6px;
+    color: red;
+}
+ .timer {
+    padding: 5px;
+}
+
+.score {
+    padding: 5px;
+}
+
+.seconds, .scoreCount {
+    font-size: 20px;
+    font-weight: 700;
+}
+.gameStatus {
+    font-size: 20px;
+    text-align: center;
+    margin: auto;
+    width: 20%;
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+.result {
+    margin: 10px auto;
+    width: 15%;
+    text-align: center;
+    
+}
+
+.qa {
+    margin: auto;
+    width: 40%;
+    border: 3px dotted green;
+    /* padding: 50px; */
+    /* text-align: center; */
+}
+
+.questionContent {
+    text-align: center;
+    padding-top: 20px;
+}
+
+.answerChoices {
+    padding: 20px;
+}
+
+

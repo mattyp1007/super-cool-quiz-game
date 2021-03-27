@@ -34,20 +34,25 @@ var questions = [
 
 function init(){
     gameInProgressEl.style.visibility = "hidden";
+    correctEl.style.visibility = "hidden";
+    wrongEl.style.visibility = "hidden";
 }
 
 
 
-var statsEl = document.getElementById("stats");
+var statsBoxEl = document.getElementById("statsBox");
+var correctEl = document.getElementById("correct");
+var wrongEl = document.getElementById("wrong");
 var qaEl = document.getElementById("qa");
 var gameInProgressEl = document.getElementById("gameInProgress");
 var gameStatusEl = document.getElementById("gameStatus");
 var questionContentEl = document.getElementById("questionContent");
 var choicesEls = document.getElementsByClassName("choiceText");
 var timerEl = document.getElementById("seconds");
-var scoreEl = document.getElementById("score");
+var scoreEl = document.getElementById("scoreCount");
 var resultEl = document.getElementById("result");
 var newGameButtonEl = document.getElementById("newGame");
+
 
 var choiceAbuttonEl = document.getElementById("choiceA");
 var choiceBbuttonEl = document.getElementById("choiceB");
@@ -75,20 +80,26 @@ function checkAnswer(picked){
     if(questions[currentQuestion-1].correct == picked){
         score += 10;
         updateScore();
-        resultString = "CORRECT! +10 Score";
+        correctEl.style.visibility = "visible";
+
+        // resultString = "CORRECT! +10 Score";
+        // resultEl.style.color = "green";
     }
     else {
         timeLeft -= 10;
         updateTimer();
-        resultString = "WRONG! -10 Time";
+        wrongEl.style.visibility = "visible";
+        // resultString = "WRONG! -10 Time";
+        // resultEl.style.color = "red";
     }
-    resultEl.textContent = resultString;
     setTimeout(function(){
-        resultEl.textContent = "";
+        correctEl.style.visibility = "hidden";
+        wrongEl.style.visibility = "hidden";
     }, 1000);
 
     nextQuestion();
 }
+
 /* nextQuestion
 * increment question number
 * if not at the end then render question, else end game */
@@ -117,7 +128,7 @@ function renderQuestion(){
 }
 
 function updateScore(){
-    scoreEl.textContent = "Score: " + score;
+    scoreEl.textContent = score;
 }
 function updateTimer(){
     timerEl.textContent = timeLeft;  
@@ -157,7 +168,7 @@ function startGame(){
 }
 
 function gameOver(){
-    statsEl.style.visibility = "hidden";
+    statsBoxEl.style.visibility = "hidden";
     qaEl.style.visibility = "hidden";
     gameStatusEl.textContent = "Game Over!";
 
