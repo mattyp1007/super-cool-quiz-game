@@ -33,17 +33,19 @@ var questions = [
 ];
 
 function init(){
-    gameContentEl.style.visibility = "hidden";
+    gameInProgressEl.style.visibility = "hidden";
 }
 
 
 
-var gameContentEl = document.querySelector(".gameInProgress");
-var questionNumEl = document.getElementById("questionNum");
+var statsEl = document.getElementById("stats");
+var qaEl = document.getElementById("qa");
+var gameInProgressEl = document.getElementById("gameInProgress");
+var gameStatusEl = document.getElementById("gameStatus");
 var questionContentEl = document.getElementById("questionContent");
 var choicesEls = document.getElementsByClassName("choiceText");
 var timerEl = document.getElementById("seconds");
-var scoreEl = document.getElementById("scoreCount");
+var scoreEl = document.getElementById("score");
 var resultEl = document.getElementById("result");
 var newGameButtonEl = document.getElementById("newGame");
 
@@ -105,7 +107,7 @@ function nextQuestion(){
 */
 function renderQuestion(){
     // display question number
-    questionNumEl.textContent = currentQuestion;
+    gameStatusEl.textContent = "Question " + currentQuestion;
     // display question content
     questionContentEl.textContent = questions[currentQuestion-1].q;
     // sets text content for answer choices
@@ -115,7 +117,7 @@ function renderQuestion(){
 }
 
 function updateScore(){
-    scoreEl.textContent = score;
+    scoreEl.textContent = "Score: " + score;
 }
 function updateTimer(){
     timerEl.textContent = timeLeft;  
@@ -144,18 +146,20 @@ function countdown(){
 * start the countdown
 */
 function startGame(){
-    gameContentEl.style.visibility = "visible";
+    gameInProgressEl.style.visibility = "visible";
     newGameButtonEl.style.visibility = "hidden";
     score = 0;
     currentQuestion = 0;
     nextQuestion();
     countdown();
     updateTimer();
+    updateScore();
 }
 
 function gameOver(){
-    gameContentEl.style.visibility = "hidden";
-    resultEl.textContent = "Game Over!";
+    statsEl.style.visibility = "hidden";
+    qaEl.style.visibility = "hidden";
+    gameStatusEl.textContent = "Game Over!";
 
 }
 
