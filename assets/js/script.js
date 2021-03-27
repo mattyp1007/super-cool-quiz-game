@@ -72,48 +72,54 @@ function checkAnswer(picked){
     var resultString = "";
     if(questions[currentQuestion-1].correct == picked){
         score += 10;
+        updateScore();
         resultString = "CORRECT! +10 Score";
     }
     else {
         timeLeft -= 10;
-        timerEl.textContent = timeLeft;
+        updateTimer();
         resultString = "WRONG! -10 Time";
     }
     resultEl.textContent = resultString;
     setTimeout(function(){
         resultEl.textContent = "";
     }, 1000);
-    
-    updateScore();
-    renderQuestion();
+
+    nextQuestion();
+}
+/* nextQuestion
+* increment question number
+* if not at the end then render question, else end game */
+function nextQuestion(){
+    currentQuestion++;
+    if(currentQuestion <= questions.length){
+        renderQuestion();
+    }
+    else{
+        gameOver();
+    }
 }
 
 /* renderQuestion:
-* increment current question number
 * display question number and content
 */
 function renderQuestion(){
-    if(currentQuestion <= questions.length){
-        currentQuestion++;
-        // display question number
-        questionNumEl.textContent = currentQuestion;
-        // display question content
-        questionContentEl.textContent = questions[currentQuestion-1].q;
-        // sets text content for answer choices
-        for(var i=0; i < 4; i++){
-            choicesEls[i].textContent = questions[currentQuestion-1].a[i];
-        }
-    }
-    else{
-        clearInterval(timeInterval);
-        gameOver();
+    // display question number
+    questionNumEl.textContent = currentQuestion;
+    // display question content
+    questionContentEl.textContent = questions[currentQuestion-1].q;
+    // sets text content for answer choices
+    for(var i=0; i < 4; i++){
+        choicesEls[i].textContent = questions[currentQuestion-1].a[i];
     }
 }
 
 function updateScore(){
     scoreEl.textContent = score;
 }
-
+function updateTimer(){
+    timerEl.textContent = timeLeft;  
+}
 /* countdown
 * create time interval of one second
 * update timer each interval
@@ -124,8 +130,8 @@ function countdown(){
     var timeInterval = setInterval(function () {
         
         timeLeft--;
-        timerEl.textContent = timeLeft;    
-        if(timeLeft <= 0){
+        updateTimer();
+        if(timeLeft <= 0 ){
             clearInterval(timeInterval);
             gameOver();
         }
@@ -138,13 +144,13 @@ function countdown(){
 * start the countdown
 */
 function startGame(){
-    console.log(gameContentEl);
     gameContentEl.style.visibility = "visible";
     newGameButtonEl.style.visibility = "hidden";
     score = 0;
-    currentQuestion = 1;
-    renderQuestion();
+    currentQuestion = 0;
+    nextQuestion();
     countdown();
+    updateTimer();
 }
 
 function gameOver(){
