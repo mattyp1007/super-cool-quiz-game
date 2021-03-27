@@ -24,8 +24,14 @@ var questions = [
         q: "?",
         a: ["Option A", "Option B", "*Option C", "Option D"],
         correct: 2
-    },
+    }
 ];
+
+function init(){
+    gameContentEl.style.visibility = "hidden";
+}
+
+var gameContentEl = document.querySelector(".gameInProgress");
 
 var currentQuestion = 0;
 var score = 0;
@@ -37,12 +43,15 @@ var choicesEls = document.getElementsByClassName("choiceText");
 var timerEl = document.getElementById("seconds");
 var scoreEl = document.getElementById("scoreCount");
 var resultEl = document.getElementById("result");
+var newGameButtonEl = document.getElementById("newGame");
 
 var choiceAbuttonEl = document.getElementById("choiceA");
 var choiceBbuttonEl = document.getElementById("choiceB");
 var choiceCbuttonEl = document.getElementById("choiceC");
 var choiceDbuttonEl = document.getElementById("choiceD");
 
+
+newGameButtonEl.addEventListener("click", function(){ startGame(); })
 
 choiceAbuttonEl.addEventListener("click", function(){ checkAnswer(0); })
 choiceBbuttonEl.addEventListener("click", function(){ checkAnswer(1); })
@@ -71,15 +80,24 @@ function checkAnswer(picked){
     renderQuestion();
 }
 
+/* renders next question:
+1.) increment current question number
+2.) display question number and Q&A content
+*/
 function renderQuestion(){
-    currentQuestion++;
-    // display question number
-    questionNumEl.textContent = currentQuestion;
-    // display question content
-    questionContentEl.textContent = questions[currentQuestion-1].q;
-    // sets text content for answer choices
-    for(var i=0; i < 4; i++){
-        choicesEls[i].textContent = questions[currentQuestion-1].a[i];
+    if(currentQuestion <= questions.length){
+        currentQuestion++;
+        // display question number
+        questionNumEl.textContent = currentQuestion;
+        // display question content
+        questionContentEl.textContent = questions[currentQuestion-1].q;
+        // sets text content for answer choices
+        for(var i=0; i < 4; i++){
+            choicesEls[i].textContent = questions[currentQuestion-1].a[i];
+        }
+    }
+    else{
+        gameOver();
     }
 }
 
@@ -87,9 +105,10 @@ function updateScore(){
     scoreEl.textContent = score;
 }
 
-
-function countdown(){
-    
+/* starts the countdown:
+1.) create time interval of one second
+2.) end game once time left hits 0 */
+function countdown(){   
     var timeInterval = setInterval(function () {
         timeLeft--;
         timerEl.textContent = timeLeft;
@@ -101,8 +120,15 @@ function countdown(){
       }, 1000);
 }
 
+/* starts a new game:
+1.) hide new game button and make the game elements visible
+2.) reset score and render first question
+3.) start the countdown */
 function startGame(){
-    
+    console.log(gameContentEl);
+    gameContentEl.style.visibility = "visible";
+    newGameButtonEl.style.visibility = "hidden";
+    score = 0;
     renderQuestion();
     countdown();
 }
@@ -115,4 +141,4 @@ function renderLeaderboard(){
 
 }
 
-startGame();
+init();

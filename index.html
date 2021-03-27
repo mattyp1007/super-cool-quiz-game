@@ -9,32 +9,36 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="timer">Time remaining: <span id="seconds" class="seconds"></span></div>
-    <br>
-    <div class="score">Score: <span id="scoreCount"></span></div>
-    <br>
-    <div class="questionTitle">Question <span id="questionNum" class="questionNum"></span></div>
-    <br>
-    <div id="questionContent" class="questionContent"></div>
-    <ul class="answerChoices">
-        <li class="choiceItem">
-            <button type="button" id="choiceA">A</button>
-            <span class="choiceText"></span>
-        </li>
-        <li class="choiceItem">
-            <button type="button" id="choiceB">B</button>
-            <span class="choiceText"></span>
-        </li>
-        <li class="choiceItem">
-            <button type="button" id="choiceC">C</button>
-            <span class="choiceText"></span>
-        </li>
-        <li class="choiceItem">
-            <button type="button" id="choiceD">D</button>
-            <span class="choiceText"></span>
-        </li>
-    </ul>
-    <div id="result"></div>
+    <div class="gameInProgress">
+        <div class="timer">Time remaining: <span id="seconds" class="seconds"></span></div>
+        <br>
+        <div class="score">Score: <span id="scoreCount"></span></div>
+        <br>
+        <div class="questionTitle">Question <span id="questionNum" class="questionNum"></span></div>
+        <br>
+        <div id="questionContent" class="questionContent"></div>
+        <ul class="answerChoices">
+            <li class="choiceItem">
+                <button type="button" id="choiceA">A</button>
+                <span class="choiceText"></span>
+            </li>
+            <li class="choiceItem">
+                <button type="button" id="choiceB">B</button>
+                <span class="choiceText"></span>
+            </li>
+            <li class="choiceItem">
+                <button type="button" id="choiceC">C</button>
+                <span class="choiceText"></span>
+            </li>
+            <li class="choiceItem">
+                <button type="button" id="choiceD">D</button>
+                <span class="choiceText"></span>
+            </li>
+        </ul> 
+        <div id="result"></div>
+    </div>
+
+    <button type="button" id="newGame">New Game</button>
 
     <script src="assets/js/script.js"></script>
 </body>
