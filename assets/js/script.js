@@ -1,42 +1,72 @@
 // Question set 
 var questions = [
     {
-        q: "What question number is this?",
-        a: ["1", "13", "6", "0"],
+        q: "?",
+        a: ["*Option A", "Option B", "Option C", "Option D"],
         correct: 0
     },
     {
-        q: "This is question 2.",
-        a: ["Option A", "Option B", "Option C", "Option D"],
+        q: "?",
+        a: ["Option A", "Option B", "Option C", "*Option D"],
         correct: 3
-    }
+    },
+    {
+        q: "?",
+        a: ["Option A", "Option B", "*Option C", "Option D"],
+        correct: 2
+    },
+    {
+        q: "?",
+        a: ["Option A", "*Option B", "Option C", "Option D"],
+        correct: 1
+    },
+    {
+        q: "?",
+        a: ["Option A", "Option B", "*Option C", "Option D"],
+        correct: 2
+    },
 ];
+
+var currentQuestion = 0;
+var score = 0;
+var timeLeft = 90;
+
 var questionNumEl = document.getElementById("questionNum");
 var questionContentEl = document.getElementById("questionContent");
 var choicesEls = document.getElementsByClassName("choiceText");
 var timerEl = document.getElementById("seconds");
 var scoreEl = document.getElementById("scoreCount");
+var resultEl = document.getElementById("result");
+
 var choiceAbuttonEl = document.getElementById("choiceA");
 var choiceBbuttonEl = document.getElementById("choiceB");
 var choiceCbuttonEl = document.getElementById("choiceC");
 var choiceDbuttonEl = document.getElementById("choiceD");
 
-var currentQuestion = 0;
-var score = 0;
 
 choiceAbuttonEl.addEventListener("click", function(){ checkAnswer(0); })
 choiceBbuttonEl.addEventListener("click", function(){ checkAnswer(1); })
 choiceCbuttonEl.addEventListener("click", function(){ checkAnswer(2); })
 choiceDbuttonEl.addEventListener("click", function(){ checkAnswer(3); })
 
+
+
 function checkAnswer(picked){
     // check for correct answer
+    var resultString = "";
     if(questions[currentQuestion-1].correct == picked){
         score += 10;
+        resultString = "CORRECT! +10 Score";
     }
     else {
-        score -= 5;
+        timeLeft -= 10;
+        resultString = "WRONG! -10 Time";
     }
+    resultEl.textContent = resultString;
+    setTimeout(function(){
+        resultEl.textContent = "";
+    }, 1000);
+    
     updateScore();
     renderQuestion();
 }
@@ -59,14 +89,14 @@ function updateScore(){
 
 
 function countdown(){
-    var timeLeft = 10;
+    
     var timeInterval = setInterval(function () {
         timeLeft--;
         timerEl.textContent = timeLeft;
     
         if(timeLeft === 0){
-          clearInterval(timeInterval);
-        //   gameOver();
+            clearInterval(timeInterval);
+            gameOver();
         }
       }, 1000);
 }
@@ -75,6 +105,14 @@ function startGame(){
     
     renderQuestion();
     countdown();
+}
+
+function gameOver(){
+    
+}
+
+function renderLeaderboard(){
+
 }
 
 startGame();
