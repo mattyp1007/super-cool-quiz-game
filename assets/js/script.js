@@ -2,6 +2,7 @@
 var currentQuestion;
 var score;
 var timeLeft;
+var timeInterval;
 
 // Question set 
 var questions = [
@@ -32,12 +33,6 @@ var questions = [
     }
 ];
 
-function init(){
-    gameInProgressEl.style.visibility = "hidden";
-    correctEl.style.visibility = "hidden";
-    wrongEl.style.visibility = "hidden";
-}
-
 
 
 var statsBoxEl = document.getElementById("statsBox");
@@ -47,26 +42,37 @@ var qaEl = document.getElementById("qa");
 var gameInProgressEl = document.getElementById("gameInProgress");
 var gameStatusEl = document.getElementById("gameStatus");
 var questionContentEl = document.getElementById("questionContent");
+var choiceListEl = document.getElementById("choiceList");
 var choicesEls = document.getElementsByClassName("choiceText");
 var timerEl = document.getElementById("seconds");
 var scoreEl = document.getElementById("scoreCount");
 var resultEl = document.getElementById("result");
 var newGameButtonEl = document.getElementById("newGame");
-
+var initialsFormEl = document.getElementById("initialsForm");
 
 var choiceAbuttonEl = document.getElementById("choiceA");
 var choiceBbuttonEl = document.getElementById("choiceB");
 var choiceCbuttonEl = document.getElementById("choiceC");
 var choiceDbuttonEl = document.getElementById("choiceD");
 
-
-newGameButtonEl.addEventListener("click", function(){ startGame(); })
+// start game and hide button upon click
+newGameButtonEl.addEventListener("click", function(){ 
+    startGame();
+    newGameButtonEl.style.visibility = "hidden";
+})
 
 choiceAbuttonEl.addEventListener("click", function(){ checkAnswer(0); })
 choiceBbuttonEl.addEventListener("click", function(){ checkAnswer(1); })
 choiceCbuttonEl.addEventListener("click", function(){ checkAnswer(2); })
 choiceDbuttonEl.addEventListener("click", function(){ checkAnswer(3); })
 
+function init(){
+    qaEl.style.visibility = "hidden";
+    correctEl.style.visibility = "hidden";
+    wrongEl.style.visibility = "hidden";
+    initialsFormEl.style.visibility = "hidden";
+    
+}
 
 /* checkAnswer
 * takes in an integer 0-3 representing answer choices A-D respectively
@@ -76,21 +82,18 @@ choiceDbuttonEl.addEventListener("click", function(){ checkAnswer(3); })
 */
 function checkAnswer(picked){
     // check for correct answer
-    var resultString = "";
     if(questions[currentQuestion-1].correct == picked){
         score += 10;
         updateScore();
         correctEl.style.visibility = "visible";
-
-        // resultString = "CORRECT! +10 Score";
-        // resultEl.style.color = "green";
     }
     else {
-        timeLeft -= 10;
+        if(timeLeft >= 10)
+            timeLeft -= 10;
+        else
+            timeLeft = 0;
         updateTimer();
         wrongEl.style.visibility = "visible";
-        // resultString = "WRONG! -10 Time";
-        // resultEl.style.color = "red";
     }
     setTimeout(function(){
         correctEl.style.visibility = "hidden";
@@ -140,7 +143,7 @@ function updateTimer(){
 */
 function countdown(){  
     timeLeft = 90; 
-    var timeInterval = setInterval(function () {
+    timeInterval = setInterval(function () {
         
         timeLeft--;
         updateTimer();
@@ -157,8 +160,8 @@ function countdown(){
 * start the countdown
 */
 function startGame(){
-    gameInProgressEl.style.visibility = "visible";
-    newGameButtonEl.style.visibility = "hidden";
+    qaEl.style.visibility = "visible";
+    
     score = 0;
     currentQuestion = 0;
     nextQuestion();
@@ -168,10 +171,49 @@ function startGame(){
 }
 
 function gameOver(){
-    statsBoxEl.style.visibility = "hidden";
-    qaEl.style.visibility = "hidden";
-    gameStatusEl.textContent = "Game Over!";
+    // stop game timer
+    clearInterval(timeInterval);
+    // award time bonus
+    setTimeout(function(){
+        timeBonus();
+        initialsFormEl.style.visibility = "visible";
+    }, 1000);
+    
 
+    gameStatusEl.textContent = "Game Over!";
+    questionContentEl.textContent = "Enter your initials:";
+    choiceListEl.style.visibility = "hidden";
+    renderLeaderboard();
+
+}
+
+/* timeBonus
+Award a bonus point for every 5 seconds remaining */
+function timeBonus(){
+    var bonus = 0;
+    var timeSubtracted = 0;
+    correctEl.style.visibility = "visible";
+    correctEl.textContent = "";
+    
+    timeInterval = setInterval(function(){
+        if(timeLeft > 0){
+            timeLeft--;
+            timeSubtracted++;
+            if(timeSubtracted % 5 === 0){
+                bonus++;
+                score++;
+                updateScore();
+            }
+            updateTimer();
+            correctEl.textContent = "BONUS: +" + bonus;          
+        }
+        else{
+            clearInterval(timeInterval);
+            setTimeout(function(){
+                correctEl.style.visibility = "hidden";
+            }, 2000);
+        }
+    }, 20);
 }
 
 function renderLeaderboard(){

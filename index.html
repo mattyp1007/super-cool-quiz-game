@@ -26,7 +26,7 @@
         
         <div id="qa" class="qa">
             <h3 id="questionContent" class="questionContent"></h3>
-            <ul class="answerChoices">
+            <ul class="choiceList" id="choiceList">
                 <li class="choiceItem">
                     <button type="button" id="choiceA">A</button>
                     <span class="choiceText"></span>
@@ -42,12 +42,17 @@
                 <li class="choiceItem">
                     <button type="button" id="choiceD">D</button>
                     <span class="choiceText"></span>
-                </li>
-            </ul> 
+                </li>    
+            </ul>
+            <form id="initialsForm" class="initialsForm">
+                <input type="text" id="initials">
+                <input type="submit" value="Submit">
+            </form> 
         </div>
+        <button type="button" id="newGame">New Game</button>
     </div>
     
-    <button type="button" id="newGame">New Game</button>
+    
 
     <script src="assets/js/script.js"></script>
 </body>
