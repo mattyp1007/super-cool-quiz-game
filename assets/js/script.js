@@ -69,12 +69,15 @@ var initialsFormEl = document.getElementById("initialsForm");
 var initialsTextBoxEl = document.getElementById("initialsTextBox");
 var submitButtonEl = document.getElementById("submitButton");
 
-
+// leaderboard
+var leaderboardEl = document.getElementById("leaderboard");
+var leaderboardListEl = document.getElementById("leaderboardList");
+var leaderboardListItemsEls = document.getElementsByClassName("lbItem");
 
 // start game and hide button upon click
 newGameButtonEl.addEventListener("click", function(){ 
     startGame();
-    newGameButtonEl.style.visibility = "hidden";
+    
 })
 
 choiceAbuttonEl.addEventListener("click", function(){ checkAnswer(0); })
@@ -87,9 +90,10 @@ function init(){
 
     choiceListEl.style.visibility = "hidden";
     correctEl.style.visibility = "hidden";
+    correctEl.textContent = "CORRECT! +10 points"
     wrongEl.style.visibility = "hidden";
     initialsFormEl.style.visibility = "hidden";
-    
+    leaderboardEl.style.visibility = "hidden";
 }
 
 /* checkAnswer
@@ -181,7 +185,8 @@ function countdown(){
 */
 function startGame(){
     choiceListEl.style.visibility = "visible";
-    
+    leaderboardEl.style.visibility = "hidden";
+    newGameButtonEl.style.visibility = "hidden";
     score = 0;
     currentQuestion = 0;
     nextQuestion();
@@ -203,7 +208,7 @@ function gameOver(){
     gameStatusEl.textContent = "Game Over!";
     questionContentEl.textContent = "Enter your initials:";
     choiceListEl.style.visibility = "hidden";
-    renderLeaderboard();
+    // renderLeaderboard();
 
 }
 
@@ -258,13 +263,12 @@ submitButtonEl.addEventListener("click", function(){
         highScores.push(scoreSubmission);
     }
     highScores = updateLeaderboard(highScores);
-    
-    // var highScores = JSON.parse(localStorage.getItem("highScores"));
-    // highScores.sort();
-    while(highScores.length > 5){
+    // take the sorted array and remove the last item (lowest score)
+    if(highScores.length > 5){
         highScores.pop();
     }
-    console.log(highScores);
+    // console.log(highScores);
+    renderLeaderboard(highScores);
     localStorage.setItem("highScores", JSON.stringify(highScores));
 });
 
@@ -284,8 +288,13 @@ function updateLeaderboard(scores){
     // console.log(scores);
 }
 
-function renderLeaderboard(){
-
+function renderLeaderboard(items){
+    leaderboardEl.style.visibility = "visible";
+    for(var i = 0; i < 5; i++){
+        leaderboardListItemsEls[i].textContent = items[i].initials + "\t\t\t" + items[i].score;
+    }
+    newGameButtonEl.style.visibility = "visible";
+    
 }
 
 init();
