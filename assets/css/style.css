@@ -65,11 +65,9 @@ body {
     font-weight: 600;
 }
 
-.result {
-    margin: 10px auto;
-    width: 15%;
-    text-align: center;
-    
+.newGame {
+    margin: 6% auto;
+    width: 18%;
 }
 
 .qa {

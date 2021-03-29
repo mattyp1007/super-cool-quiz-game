@@ -33,27 +33,43 @@ var questions = [
     }
 ];
 
-
-
+// stats elements
 var statsBoxEl = document.getElementById("statsBox");
 var correctEl = document.getElementById("correct");
 var wrongEl = document.getElementById("wrong");
-var qaEl = document.getElementById("qa");
-var gameInProgressEl = document.getElementById("gameInProgress");
-var gameStatusEl = document.getElementById("gameStatus");
-var questionContentEl = document.getElementById("questionContent");
-var choiceListEl = document.getElementById("choiceList");
-var choicesEls = document.getElementsByClassName("choiceText");
 var timerEl = document.getElementById("seconds");
 var scoreEl = document.getElementById("scoreCount");
-var resultEl = document.getElementById("result");
-var newGameButtonEl = document.getElementById("newGame");
-var initialsFormEl = document.getElementById("initialsForm");
 
+// all content below page banner
+var gameInProgressEl = document.getElementById("gameInProgress");
+
+// displays question number or game over
+var gameStatusEl = document.getElementById("gameStatus");
+
+// includes questionContent and answer choice list
+var qaEl = document.getElementById("qa");
+
+// displays question text
+var questionContentEl = document.getElementById("questionContent");
+
+// answer choice list and items
+var choiceListEl = document.getElementById("choiceList");
+var choicesEls = document.getElementsByClassName("choiceText");
+// answer choice buttons
 var choiceAbuttonEl = document.getElementById("choiceA");
 var choiceBbuttonEl = document.getElementById("choiceB");
 var choiceCbuttonEl = document.getElementById("choiceC");
 var choiceDbuttonEl = document.getElementById("choiceD");
+
+// new game button
+var newGameButtonEl = document.getElementById("newGame");
+
+// score submission form
+var initialsFormEl = document.getElementById("initialsForm");
+var initialsTextBoxEl = document.getElementById("initialsTextBox");
+var submitButtonEl = document.getElementById("submitButton");
+
+
 
 // start game and hide button upon click
 newGameButtonEl.addEventListener("click", function(){ 
@@ -67,7 +83,9 @@ choiceCbuttonEl.addEventListener("click", function(){ checkAnswer(2); })
 choiceDbuttonEl.addEventListener("click", function(){ checkAnswer(3); })
 
 function init(){
-    qaEl.style.visibility = "hidden";
+    questionContentEl.textContent = "Press the button to start the game:";
+
+    choiceListEl.style.visibility = "hidden";
     correctEl.style.visibility = "hidden";
     wrongEl.style.visibility = "hidden";
     initialsFormEl.style.visibility = "hidden";
@@ -81,6 +99,8 @@ function init(){
 * updates score and renders next question
 */
 function checkAnswer(picked){
+    correctEl.style.visibility = "hidden";
+    wrongEl.style.visibility = "hidden";
     // check for correct answer
     if(questions[currentQuestion-1].correct == picked){
         score += 10;
@@ -160,7 +180,7 @@ function countdown(){
 * start the countdown
 */
 function startGame(){
-    qaEl.style.visibility = "visible";
+    choiceListEl.style.visibility = "visible";
     
     score = 0;
     currentQuestion = 0;
@@ -176,7 +196,7 @@ function gameOver(){
     // award time bonus
     setTimeout(function(){
         timeBonus();
-        initialsFormEl.style.visibility = "visible";
+        
     }, 1000);
     
 
@@ -194,7 +214,7 @@ function timeBonus(){
     var timeSubtracted = 0;
     correctEl.style.visibility = "visible";
     correctEl.textContent = "";
-    
+    // subtract time as bonus points are added
     timeInterval = setInterval(function(){
         if(timeLeft > 0){
             timeLeft--;
@@ -206,14 +226,62 @@ function timeBonus(){
             }
             updateTimer();
             correctEl.textContent = "BONUS: +" + bonus;          
-        }
+        }      
         else{
+            // once bonus is added, show the submission form
             clearInterval(timeInterval);
+            initialsFormEl.style.visibility = "visible";
+            // hide bonus text after 2 seconds
             setTimeout(function(){
                 correctEl.style.visibility = "hidden";
+                
             }, 2000);
         }
     }, 20);
+}
+
+submitButtonEl.addEventListener("click", function(){
+    initialsFormEl.style.visibility = "hidden";
+    // create score submission object
+    var scoreSubmission = {
+        initials: initialsTextBoxEl.value,
+        score: score
+    };
+    // retrieve high scores
+    var highScores = JSON.parse(localStorage.getItem("highScores"));
+    // if empty, initialize it with current submission
+    if(!highScores){
+        highScores = [scoreSubmission];
+    }
+    // else, add current submission to end of array
+    else {
+        highScores.push(scoreSubmission);
+    }
+    highScores = updateLeaderboard(highScores);
+    
+    // var highScores = JSON.parse(localStorage.getItem("highScores"));
+    // highScores.sort();
+    while(highScores.length > 5){
+        highScores.pop();
+    }
+    console.log(highScores);
+    localStorage.setItem("highScores", JSON.stringify(highScores));
+});
+
+function updateLeaderboard(scores){
+    // comparison function to sort by score
+    function compare(a, b){
+        if(a.score < b.score){
+            return 1;
+        }
+        if(a.score > b.score){
+            return -1;
+        }
+        return 0;
+    }
+    // sort using comparison function
+    return scores.sort(compare);
+    // console.log(scores);
 }
 
 function renderLeaderboard(){
