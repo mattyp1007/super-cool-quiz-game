@@ -71,8 +71,13 @@ body {
 }
 
 .qa {
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between;
+    align-items: flex-start;
     margin: auto;
     width: 40%;
+    height: 50%;
     border: 3px dotted green;
     /* padding: 50px; */
     /* text-align: center; */
@@ -89,13 +94,22 @@ body {
 .leaderboard {
     margin: auto;
     width: 50%;
-    align-items: center;
+    /* align-items: center; */
 }
 .leaderboard h2 {
     /* text-align: right; */
     font-size: 20px;
+    text-align: center;
+    /* padding: 6px 0px; */
 }
 .leaderboardList {
     list-style:decimal;
+    
     /* text-align: right; */
+}
+.leaderboardList li {
+    text-align: left;
+}
+.leaderboardList li span {
+    float: right;
 }

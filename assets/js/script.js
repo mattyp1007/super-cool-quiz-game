@@ -74,11 +74,8 @@ var leaderboardEl = document.getElementById("leaderboard");
 var leaderboardListEl = document.getElementById("leaderboardList");
 var leaderboardListItemsEls = document.getElementsByClassName("lbItem");
 
-// start game and hide button upon click
-newGameButtonEl.addEventListener("click", function(){ 
-    startGame();
-    
-})
+// listener for new game button
+newGameButtonEl.addEventListener("click", startGame);
 
 choiceAbuttonEl.addEventListener("click", function(){ checkAnswer(0); })
 choiceBbuttonEl.addEventListener("click", function(){ checkAnswer(1); })
@@ -87,13 +84,14 @@ choiceDbuttonEl.addEventListener("click", function(){ checkAnswer(3); })
 
 function init(){
     questionContentEl.textContent = "Press the button to start the game:";
-
-    choiceListEl.style.visibility = "hidden";
-    correctEl.style.visibility = "hidden";
+    statsBoxEl.style.visibility = "hidden";
+    choiceListEl.style.display = "none";
+    correctEl.style.display = "none";
     correctEl.textContent = "CORRECT! +10 points"
-    wrongEl.style.visibility = "hidden";
-    initialsFormEl.style.visibility = "hidden";
-    leaderboardEl.style.visibility = "hidden";
+    wrongEl.style.display = "none";
+    initialsFormEl.style.display = "none";
+    leaderboardEl.style.display = "none";
+    
 }
 
 /* checkAnswer
@@ -103,13 +101,14 @@ function init(){
 * updates score and renders next question
 */
 function checkAnswer(picked){
-    correctEl.style.visibility = "hidden";
-    wrongEl.style.visibility = "hidden";
+    correctEl.style.display = "none";
+    wrongEl.style.display = "none";
     // check for correct answer
     if(questions[currentQuestion-1].correct == picked){
         score += 10;
         updateScore();
-        correctEl.style.visibility = "visible";
+        correctEl.textContent = "CORRECT! +10 points";
+        correctEl.style.display = "initial";
     }
     else {
         if(timeLeft >= 10)
@@ -117,11 +116,12 @@ function checkAnswer(picked){
         else
             timeLeft = 0;
         updateTimer();
-        wrongEl.style.visibility = "visible";
+        wrongEl.textContent = "WRONG! -10 sec";
+        wrongEl.style.display = "initial";
     }
     setTimeout(function(){
-        correctEl.style.visibility = "hidden";
-        wrongEl.style.visibility = "hidden";
+        correctEl.style.display = "none";
+        wrongEl.style.display = "none";
     }, 1000);
 
     nextQuestion();
@@ -160,6 +160,7 @@ function updateScore(){
 function updateTimer(){
     timerEl.textContent = timeLeft;  
 }
+
 /* countdown
 * create time interval of one second
 * update timer each interval
@@ -184,9 +185,14 @@ function countdown(){
 * start the countdown
 */
 function startGame(){
-    choiceListEl.style.visibility = "visible";
-    leaderboardEl.style.visibility = "hidden";
-    newGameButtonEl.style.visibility = "hidden";
+    choiceListEl.style.display = "initial";
+    statsBoxEl.style.visibility = "visible";
+    leaderboardEl.style.display = "none";
+    newGameButtonEl.style.display = "none";
+    // clear leaderboard items
+    while(leaderboardListEl.firstChild) {
+        leaderboardListEl.removeChild(leaderboardListEl.firstChild);
+    }
     score = 0;
     currentQuestion = 0;
     nextQuestion();
@@ -204,12 +210,10 @@ function gameOver(){
         
     }, 1000);
     
-
     gameStatusEl.textContent = "Game Over!";
-    questionContentEl.textContent = "Enter your initials:";
-    choiceListEl.style.visibility = "hidden";
-    // renderLeaderboard();
-
+    questionContentEl.textContent = "Calculating score...";
+    questionContentEl.style.display = "initial";
+    choiceListEl.style.display = "none";
 }
 
 /* timeBonus
@@ -217,7 +221,7 @@ Award a bonus point for every 5 seconds remaining */
 function timeBonus(){
     var bonus = 0;
     var timeSubtracted = 0;
-    correctEl.style.visibility = "visible";
+    correctEl.style.display = "initial";
     correctEl.textContent = "";
     // subtract time as bonus points are added
     timeInterval = setInterval(function(){
@@ -235,10 +239,11 @@ function timeBonus(){
         else{
             // once bonus is added, show the submission form
             clearInterval(timeInterval);
-            initialsFormEl.style.visibility = "visible";
+            questionContentEl.textContent = "Enter your initials:";
+            initialsFormEl.style.display = "initial";
             // hide bonus text after 2 seconds
             setTimeout(function(){
-                correctEl.style.visibility = "hidden";
+                correctEl.style.display = "none";
                 
             }, 2000);
         }
@@ -246,7 +251,8 @@ function timeBonus(){
 }
 
 submitButtonEl.addEventListener("click", function(){
-    initialsFormEl.style.visibility = "hidden";
+    initialsFormEl.style.display = "none";
+    questionContentEl.style.display = "none";
     // create score submission object
     var scoreSubmission = {
         initials: initialsTextBoxEl.value,
@@ -285,15 +291,16 @@ function updateLeaderboard(scores){
     }
     // sort using comparison function
     return scores.sort(compare);
-    // console.log(scores);
 }
 
 function renderLeaderboard(items){
-    leaderboardEl.style.visibility = "visible";
-    for(var i = 0; i < 5; i++){
-        leaderboardListItemsEls[i].textContent = items[i].initials + "\t\t\t" + items[i].score;
+    leaderboardEl.style.display = "initial";
+    for(var i = 0; i < items.length; i++){
+        var item = document.createElement("li");
+        item.innerHTML = items[i].initials + "<span>" + items[i].score + "</span>";
+        leaderboardListEl.appendChild(item);
     }
-    newGameButtonEl.style.visibility = "visible";
+    newGameButtonEl.style.display = "initial";
     
 }
 
