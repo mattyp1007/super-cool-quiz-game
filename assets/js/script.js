@@ -185,6 +185,7 @@ function countdown(){
 * start the countdown
 */
 function startGame(){
+    questionContentEl.style.display = "initial";
     choiceListEl.style.display = "initial";
     statsBoxEl.style.visibility = "visible";
     leaderboardEl.style.display = "none";
@@ -240,7 +241,7 @@ function timeBonus(){
             // once bonus is added, show the submission form
             clearInterval(timeInterval);
             questionContentEl.textContent = "Enter your initials:";
-            initialsFormEl.style.display = "initial";
+            initialsFormEl.style.display = "flex";
             // hide bonus text after 2 seconds
             setTimeout(function(){
                 correctEl.style.display = "none";
@@ -250,6 +251,7 @@ function timeBonus(){
     }, 20);
 }
 
+// after clicking submit, hide the form and retrieve top scores
 submitButtonEl.addEventListener("click", function(){
     initialsFormEl.style.display = "none";
     questionContentEl.style.display = "none";
@@ -268,16 +270,19 @@ submitButtonEl.addEventListener("click", function(){
     else {
         highScores.push(scoreSubmission);
     }
+    // re-sort scores with new submission
     highScores = updateLeaderboard(highScores);
     // take the sorted array and remove the last item (lowest score)
     if(highScores.length > 5){
         highScores.pop();
     }
-    // console.log(highScores);
+    // show leaderboard
     renderLeaderboard(highScores);
+    // save new top 5 list to local storage
     localStorage.setItem("highScores", JSON.stringify(highScores));
 });
 
+// sort the array containing the retrieved top 5 scores AND the current submission
 function updateLeaderboard(scores){
     // comparison function to sort by score
     function compare(a, b){
@@ -295,13 +300,13 @@ function updateLeaderboard(scores){
 
 function renderLeaderboard(items){
     leaderboardEl.style.display = "initial";
+    // loop through array items and display them on the leaderboard
     for(var i = 0; i < items.length; i++){
         var item = document.createElement("li");
         item.innerHTML = items[i].initials + "<span>" + items[i].score + "</span>";
         leaderboardListEl.appendChild(item);
     }
     newGameButtonEl.style.display = "initial";
-    
 }
 
 init();
