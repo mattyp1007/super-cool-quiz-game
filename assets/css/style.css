@@ -121,11 +121,11 @@ body {
     justify-content:space-evenly;
     /* margin: auto; */
     /* width: 40%; */
-    max-width: 400px;
+    width: 400px;
     height: 250px;
     margin-top: 10px;
-    /* min-height: 200px;
-    min-width: 258px; */
+    /* min-height: 200px;*/
+    /* min-width: 258px; */
     border: 3px dotted green;
     padding: 15px 30px;
 }
@@ -185,9 +185,15 @@ body {
     float: right;
 }
 
+@media screen and (max-width: 496px){
+    .qa {
+        width: auto;
+    }
+}
+
 @media screen and (max-width: 390px){
     .correct, .wrong {
-        font-size: 16px;
+        font-size: 15px;
     }
     .choiceList {
         font-size: 14px;
