@@ -1,31 +1,38 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: lightgreen;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .title {
     font-size: 38px;
     display: block;
-    margin: 30px auto;
+    margin: 20px auto;
     width: 50%;
     text-align: center;
+    max-width: 600px;
+    min-width: 258px;
     border: 4px dotted royalblue;
-    padding: 10px 40px 18px 40px;
+    padding: 2%;
 }
 .outerStatsBox {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin: 20px auto;
-    /* width: 12%; */
+    margin: auto;
+    width: 100%;
+    /* display: inline-block; */
 }
 .statsBox {
     /* display: inline-block; */
     border: 3px dotted darkorange;
-    
-    padding: 6px;
     text-align: right;
-    display: block;
+    /* margin-left: 30px; */
+    padding: 6px;
+    min-width: 173px;
+    
 }
 
 .changeBox {
@@ -33,12 +40,14 @@ body {
     /* display: inline-block; */
 }
 .correct {
+    display: block;
     font-size: 18px;
     font-weight: 600;
     padding: 6px;
     color: green;
 }
 .wrong {
+    display: block;
     font-size: 18px;
     font-weight: 600;
     padding: 6px;
@@ -60,7 +69,8 @@ body {
     font-size: 20px;
     text-align: center;
     margin: auto;
-    width: 20%;
+    margin-top: 10px;
+    /* width: 20%; */
     text-decoration: underline;
     font-weight: 600;
 }
@@ -68,7 +78,7 @@ body {
 .newGame {
     height: 50px;
     width: 100px;
-    /* margin: auto; */
+    margin: auto;
 }
 
 .qa {
@@ -77,10 +87,12 @@ body {
     justify-content:space-evenly;
     /* align-items: center; */
     margin: auto;
+    /* margin-top: 20px; */
     width: 40%;
     min-height: 200px;
+    min-width: 258px;
     border: 3px dotted green;
-    /* padding: 50px; */
+    padding: 15px 30px;
     /* text-align: center; */
 }
 
@@ -96,12 +108,15 @@ body {
 li button {
     width: 30px;
 }
+
 .initialsForm {
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
-
+.initialsForm input {
+    width: 50px;
+}
 .leaderboard {
     margin: auto;
     width: 50%;

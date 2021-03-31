@@ -30,6 +30,37 @@ var questions = [
         q: "?",
         a: ["Option A", "Option B", "*Option C", "Option D"],
         correct: 2
+    },
+    {
+        q: "?",
+        a: ["Option A", "*Option B", "Option C", "Option D"],
+        correct: 1
+    },
+    {
+        q: "?",
+        a: ["Option A", "*Option B", "Option C", "Option D"],
+        correct: 1
+    },
+    {
+        q: "?",
+        a: ["Option A", "*Option B", "Option C", "Option D"],
+        correct: 1
+    },
+    {
+        
+        q: "?",
+        a: ["Option A", "*Option B", "Option C", "Option D"],
+        correct: 1
+    },
+    {
+        q: "?",
+        a: ["Option A", "*Option B", "Option C", "Option D"],
+        correct: 1
+    },
+    {
+        q: "?",
+        a: ["Option A", "*Option B", "Option C", "Option D"],
+        correct: 1
     }
 ];
 
@@ -86,9 +117,9 @@ function init(){
     questionContentEl.textContent = "Press the button to start the game:";
     statsBoxEl.style.visibility = "hidden";
     choiceListEl.style.display = "none";
-    correctEl.style.display = "none";
-    correctEl.textContent = "CORRECT! +10 points"
-    wrongEl.style.display = "none";
+    correctEl.style.visibility = "hidden";
+    correctEl.textContent = "CORRECT! +10 points";
+    wrongEl.style.visibility = "hidden";
     initialsFormEl.style.display = "none";
     leaderboardEl.style.display = "none";
     
@@ -101,14 +132,14 @@ function init(){
 * updates score and renders next question
 */
 function checkAnswer(picked){
-    correctEl.style.display = "none";
-    wrongEl.style.display = "none";
+    correctEl.style.visibility = "hidden";
+    wrongEl.style.visibility = "hidden";
     // check for correct answer
     if(questions[currentQuestion-1].correct == picked){
         score += 10;
         updateScore();
         correctEl.textContent = "CORRECT! +10 points";
-        correctEl.style.display = "initial";
+        correctEl.style.visibility = "visible";
     }
     else {
         if(timeLeft >= 10)
@@ -117,11 +148,11 @@ function checkAnswer(picked){
             timeLeft = 0;
         updateTimer();
         wrongEl.textContent = "WRONG! -10 sec";
-        wrongEl.style.display = "initial";
+        wrongEl.style.visibility = "visible";
     }
     setTimeout(function(){
-        correctEl.style.display = "none";
-        wrongEl.style.display = "none";
+        correctEl.style.visibility = "hidden";
+        wrongEl.style.visibility = "hidden";
     }, 1000);
 
     nextQuestion();
@@ -190,6 +221,7 @@ function startGame(){
     statsBoxEl.style.visibility = "visible";
     leaderboardEl.style.display = "none";
     newGameButtonEl.style.display = "none";
+    correctEl.textContent = "CORRECT! +10 points";
     // clear leaderboard items
     while(leaderboardListEl.firstChild) {
         leaderboardListEl.removeChild(leaderboardListEl.firstChild);
@@ -200,6 +232,7 @@ function startGame(){
     countdown();
     updateTimer();
     updateScore();
+    
 }
 
 function gameOver(){
@@ -222,7 +255,7 @@ Award a bonus point for every 5 seconds remaining */
 function timeBonus(){
     var bonus = 0;
     var timeSubtracted = 0;
-    correctEl.style.display = "initial";
+    correctEl.style.visibility = "visible";
     correctEl.textContent = "";
     // subtract time as bonus points are added
     timeInterval = setInterval(function(){
@@ -244,7 +277,7 @@ function timeBonus(){
             initialsFormEl.style.display = "flex";
             // hide bonus text after 2 seconds
             setTimeout(function(){
-                correctEl.style.display = "none";
+                correctEl.style.visibility = "hidden";
                 
             }, 2000);
         }
