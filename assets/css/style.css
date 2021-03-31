@@ -4,27 +4,40 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: center;
+    /* margin: 10px; */
+    /* margin-left: auto; */
 }
 
 .title {
-    font-size: 38px;
+    font-size: 32px;
     display: block;
-    margin: 20px auto;
-    width: 50%;
+    font-weight: 700;
+    margin: 20px;
+    width: 438px;
+    /* width: 50%; */
     text-align: center;
     max-width: 600px;
     min-width: 258px;
     border: 4px dotted royalblue;
-    padding: 2%;
+    padding: 10px 10px 16px 10px;
+}
+
+.midAndBottom {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
 }
 
 /* container for statsBox and changeBox*/
 .outerStatsBox {
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    margin: auto;
-    width: 100%;
+    justify-content: flex-start;
+    margin-top: 10px;
+    /* margin-left: 40%;
+    width: 50%; */
 }
 
 /* displays score and time remaining */
@@ -38,12 +51,15 @@ body {
 /* Contains the text for gaining points or losing time */
 .changeBox {
     padding: 10px;
+    /* margin: auto auto auto 0px; */
 }
+
 
 /* gaining points text */
 .correct {
     display: block;
-    font-size: 18px;
+    font-size: 14px;
+    line-height: 18px;
     font-weight: 600;
     padding: 6px;
     color: green;
@@ -52,7 +68,8 @@ body {
 /* losing time text */
 .wrong {
     display: block;
-    font-size: 18px;
+    font-size: 14px;
+    line-height: 18px;
     font-weight: 600;
     padding: 6px;
     color: red;
@@ -78,7 +95,7 @@ body {
 .gameStatus {
     font-size: 20px;
     text-align: center;
-    margin: auto;
+    /* margin: auto; */
     margin-top: 10px;
     text-decoration: underline;
     font-weight: 600;
@@ -96,8 +113,11 @@ body {
     display: flex;
     flex-direction: column;
     justify-content:space-evenly;
-    margin: auto;
-    width: 40%;
+    /* margin: auto; */
+    /* width: 40%; */
+    width: 400px;
+    height: 250px;
+    margin-top: 10px;
     min-height: 200px;
     min-width: 258px;
     border: 3px dotted green;
