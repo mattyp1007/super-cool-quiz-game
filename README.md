@@ -7,7 +7,7 @@ This is a simple quiz game created only with raw HTML, CSS, and JavaScript. Thes
 https://mattyp1007.github.io/super-cool-quiz-game/
 
 ## Screenshots
-
+Note: There are some timed elements which cannot be demonstrated with screenshots. Visit the live site to see them in effect.
 ### First screen
 ![Caption](./assets/images/grab-1.png)
 
