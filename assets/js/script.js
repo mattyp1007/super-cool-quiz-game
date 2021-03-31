@@ -113,7 +113,7 @@ function init(){
     statsBoxEl.style.visibility = "hidden";
     choiceListEl.style.display = "none";
     correctEl.style.visibility = "hidden";
-    correctEl.textContent = "CORRECT! +10 points";
+    correctEl.textContent = "+10 pts";
     wrongEl.style.visibility = "hidden";
     initialsFormEl.style.display = "none";
     leaderboardEl.style.display = "none";
@@ -133,7 +133,7 @@ function checkAnswer(picked){
     if(questions[currentQuestion-1].correct == picked){
         score += 10;
         updateScore();
-        correctEl.textContent = "CORRECT! +10 points";
+        // correctEl.textContent = "CORRECT! +10 points";
         correctEl.style.visibility = "visible";
     }
     else {
@@ -142,7 +142,7 @@ function checkAnswer(picked){
         else
             timeLeft = 0;
         updateTimer();
-        wrongEl.textContent = "WRONG! -10 sec";
+        // wrongEl.textContent = "WRONG! -10 sec";
         wrongEl.style.visibility = "visible";
     }
     setTimeout(function(){
@@ -216,7 +216,7 @@ function startGame(){
     statsBoxEl.style.visibility = "visible";
     leaderboardEl.style.display = "none";
     newGameButtonEl.style.display = "none";
-    correctEl.textContent = "CORRECT! +10 points";
+    correctEl.textContent = "+10 pts";
     // clear leaderboard items
     while(leaderboardListEl.firstChild) {
         leaderboardListEl.removeChild(leaderboardListEl.firstChild);
