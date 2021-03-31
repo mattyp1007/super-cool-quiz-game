@@ -8,7 +8,7 @@ https://mattyp1007.github.io/super-cool-quiz-game/
 
 ## Screenshots
 Note: There are some timed elements which cannot be demonstrated with screenshots. Visit the live site to see them in effect.
-### First screen
+### First Screen
 ![Caption](./assets/images/grab-1.png)
 
 ### Question Screen
