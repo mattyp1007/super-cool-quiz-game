@@ -11,15 +11,14 @@ body {
 
 .title {
     font-size: 32px;
-    display: block;
     font-weight: 700;
     /* margin: 20px; */
-    /* max-width: 438px; */
-    /* flex: 0 1 auto; */
+    flex: 0 1 auto;
     /* width: 50%; */
     text-align: center;
-    max-width: 600px;
-    min-width: 258px;
+    /* width: auto; */
+    width: 438px;
+    /* align-self: stretch; */
     border: 4px dotted royalblue;
     padding: 10px 10px 16px 10px;
 }
@@ -192,7 +191,7 @@ body {
 }
 
 @media screen and (max-width: 496px){
-    .qa {
+    .title, .qa {
         width: auto;
     }
 }
