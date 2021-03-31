@@ -7,60 +7,54 @@ var timeInterval;
 // Question set 
 var questions = [
     {
-        q: "?",
-        a: ["*Option A", "Option B", "Option C", "Option D"],
+        q: "What German rock band released their debut album \"Monster Movie\" in 1969?",
+        a: ["Scorpions", "Can", "NEU!", "Nektar"],
+        correct: 1
+    },
+    {
+        q: "Who was the lead vocalist of British punk band The Fall?",
+        a: ["Mark E. Smith", "Robert Smith", "Elliott Smith", "Morrissey"],
         correct: 0
     },
     {
-        q: "?",
-        a: ["Option A", "Option B", "Option C", "*Option D"],
+        q: "What song by David Bowie was performed by Nirvana at their famous MTV Unplugged in New York show?",
+        a: ["Space Oddity", "Rebel Rebel", "The Man Who Sold the World", "Heroes"],
+        correct: 2
+    },
+    {
+        q: "What is the title of Black Sabbath's third full-length album?",
+        a: ["Paranoid", "Master of Reality", "Sabbath Bloody Sabbath", "Heaven and Hell"],
+        correct: 1
+    },
+    {
+        q: "What is the name of the zany pop/rock band founded by the brothers Mael?",
+        a: ["T. Rex", "Queen", "Roxy Music", "Sparks"],
         correct: 3
     },
     {
-        q: "?",
-        a: ["Option A", "Option B", "*Option C", "Option D"],
+        q: "What power duo consists of John Lennon's son Sean and Primus bassist/vocalist Les Claypool?",
+        a: ["The Claypool Lennon Conspiracy", "The Claypool Lennon Delirium", "The Claypool Lennon Duo", "The Claypool Lennon Project"],
+        correct: 1
+    },
+    {
+        q: "What metal band won a Grammy for their single \"B.Y.O.B.\"?",
+        a: ["Korn", "System of a Down", "Slipknot", "Deftones"],
+        correct: 1
+    },
+    {
+        q: "What band released the album \"Yoshimi Battles the Pink Robots\" in 2002?",
+        a: ["of Montreal", "Animal Collective", "Deerhunter", "The Flaming Lips"],
+        correct: 3
+    },
+    {
+        q: "What musical genre was pioneered in part by Brian Eno?",
+        a: ["Techno", "Dubstep", "Ambient", "Country"],
         correct: 2
     },
     {
-        q: "?",
-        a: ["Option A", "*Option B", "Option C", "Option D"],
-        correct: 1
-    },
-    {
-        q: "?",
-        a: ["Option A", "Option B", "*Option C", "Option D"],
-        correct: 2
-    },
-    {
-        q: "?",
-        a: ["Option A", "*Option B", "Option C", "Option D"],
-        correct: 1
-    },
-    {
-        q: "?",
-        a: ["Option A", "*Option B", "Option C", "Option D"],
-        correct: 1
-    },
-    {
-        q: "?",
-        a: ["Option A", "*Option B", "Option C", "Option D"],
-        correct: 1
-    },
-    {
-        
-        q: "?",
-        a: ["Option A", "*Option B", "Option C", "Option D"],
-        correct: 1
-    },
-    {
-        q: "?",
-        a: ["Option A", "*Option B", "Option C", "Option D"],
-        correct: 1
-    },
-    {
-        q: "?",
-        a: ["Option A", "*Option B", "Option C", "Option D"],
-        correct: 1
+        q: "Who was the original vocalist of Pink Floyd before he was forced to quit the band?",
+        a: ["Syd Barrett", "Roger Waters", "David Gilmour", "Richard Wright"],
+        correct: 0
     }
 ];
 
@@ -113,6 +107,7 @@ choiceBbuttonEl.addEventListener("click", function(){ checkAnswer(1); })
 choiceCbuttonEl.addEventListener("click", function(){ checkAnswer(2); })
 choiceDbuttonEl.addEventListener("click", function(){ checkAnswer(3); })
 
+// format page for initial page load
 function init(){
     questionContentEl.textContent = "Press the button to start the game:";
     statsBoxEl.style.visibility = "hidden";

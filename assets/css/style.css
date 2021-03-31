@@ -17,28 +17,30 @@ body {
     border: 4px dotted royalblue;
     padding: 2%;
 }
+
+/* container for statsBox and changeBox*/
 .outerStatsBox {
     display: flex;
     flex-direction: row;
     justify-content: center;
     margin: auto;
     width: 100%;
-    /* display: inline-block; */
-}
-.statsBox {
-    /* display: inline-block; */
-    border: 3px dotted darkorange;
-    text-align: right;
-    /* margin-left: 30px; */
-    padding: 6px;
-    min-width: 173px;
-    
 }
 
+/* displays score and time remaining */
+.statsBox {
+    border: 3px dotted darkorange;
+    text-align: right;
+    padding: 6px;
+    min-width: 173px;
+}
+
+/* Contains the text for gaining points or losing time */
 .changeBox {
     padding: 10px;
-    /* display: inline-block; */
 }
+
+/* gaining points text */
 .correct {
     display: block;
     font-size: 18px;
@@ -46,6 +48,8 @@ body {
     padding: 6px;
     color: green;
 }
+
+/* losing time text */
 .wrong {
     display: block;
     font-size: 18px;
@@ -53,90 +57,104 @@ body {
     padding: 6px;
     color: red;
 }
+
+/* line of text for time left */
 .timer {
     padding: 5px;
 }
 
+/* line of text for score */
 .score {
     padding: 5px;
 }
 
+/* spans of the number of seconds left and points */
 .seconds, .scoreCount {
     font-size: 20px;
     font-weight: 700;
 }
+
+/* text for question number / game over */
 .gameStatus {
     font-size: 20px;
     text-align: center;
     margin: auto;
     margin-top: 10px;
-    /* width: 20%; */
     text-decoration: underline;
     font-weight: 600;
 }
 
+/* new game button */
 .newGame {
     height: 50px;
     width: 100px;
     margin: auto;
 }
 
+/* box where questions and answers, new game button, and leaderboard are displayed */
 .qa {
     display: flex;
     flex-direction: column;
     justify-content:space-evenly;
-    /* align-items: center; */
     margin: auto;
-    /* margin-top: 20px; */
     width: 40%;
     min-height: 200px;
     min-width: 258px;
     border: 3px dotted green;
     padding: 15px 30px;
-    /* text-align: center; */
 }
 
+/* question text */
 .questionContent {
     text-align: center;
-    /* padding-top: 20px; */
 }
 
+/* list of answer choices */
 .choiceList {
     float: left;
 }
 
-li button {
+/* choice buttons A to D*/
+.choiceList button {
     width: 30px;
 }
 
+/* initials input box and submit button */
 .initialsForm {
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
+
+/* initials input box */
 .initialsForm input {
     width: 50px;
 }
+
+/* leaderboard heading and list */
 .leaderboard {
     margin: auto;
     width: 50%;
     max-width: 200px;
-    /* align-items: center; */
 }
+
+/* leaderboard heading */
 .leaderboard h2 {
-    /* text-align: right; */
     font-size: 20px;
     text-align: center;
-    /* padding: 6px 0px; */
 }
+
+/* leaderboard list */
 .leaderboardList {
     list-style:decimal;
-    
-    /* text-align: right; */
 }
+
+/* leaderboard list item */
 .leaderboardList li {
     text-align: left;
 }
+
+/* span for score of each leaderboard list item */
 .leaderboardList li span {
     float: right;
 }
